@@ -4,6 +4,7 @@
   "description": "Simple wrapper for amqplib methods",
   "main": "index.js",
   "scripts": {
+    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "test": "nyc --reporter=html --reporter=text mocha test/**.test.js lib/**.spec.js"
   },
   "repository": {

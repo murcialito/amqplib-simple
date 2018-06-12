@@ -1,5 +1,8 @@
 # amqplib-simple
 
+[![Coverage Status](https://coveralls.io/repos/murcialito/amqplib-simple/badge.svg?branch=master)](https://coveralls.io/repos/murcialito/amqplib-simple/badge.svg?branch=master)
+
+
 Simple interface to stablsis a connection, publish and consume messages based on configuration.
 
 Install it using npm:
