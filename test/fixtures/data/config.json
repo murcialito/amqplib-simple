@@ -1,0 +1,52 @@
+{
+	"rabbitmq":{
+		"connection": {
+			"user": "test",
+			"pass": "test",
+			"host": "test",
+			"vhost": "test",
+			"port": 5672
+		},
+		"exchange": {
+			"name": "example_exchange",
+			"type": "topic"
+		},
+		"error":{
+			"exchange": {
+				"name": "example_exchange",
+				"type": "topic"
+			},
+			"queue": {
+				"name": "error"
+			},
+			"routingKey": "error"
+		},
+		"example": {
+			"exchange": {
+				"name": "example_ex",
+				"type": "topic"
+			},
+			"queue": {
+				"name": "example",
+				"arguments":{
+	        "autoDelete": false,
+	        "x-dead-letter-exchange":	"example_dlx",
+	        "x-dead-letter-routing-key": "example",
+	        "durable": true
+	      }
+			},
+			"retries":{
+				"exchange": {
+					"name": "example_dlx",
+					"type": "topic"
+				},
+				"queue": {
+					"name": "example_retries"
+				},
+				"maxNumRetries": 3
+			},
+			"routingKey": "example"
+		}
+	},
+	"retry_sell_correction": 0.998
+}
