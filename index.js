@@ -1,11 +1,22 @@
-'use strict';
+const Connection = require('./lib/connection');
+const Consumer = require('./lib/consumer');
+const Publisher = require('./lib/publisher');
+const Logger = require('./util/logger');
 
-const connection = require('./lib/connection');
-const consumer = require('./lib/consumer');
-const publisher = require('./lib/publisher');
-
-module.exports = {
-    connection,
-    consumer,
-    publisher
+function AmqplibSimple(options) {
+    this.logger;
+    const { log, service, version, exchange, routingKey} = options;
+    if(log){
+        this.logger = Logger({ 
+            service,
+            version,
+            exchange,
+            routingKey,
+        });
+    }
+    this.connection = Connection({ logger: this.logger });
+    this.consumer = Consumer({ logger: this.logger });
+    this.publisher = Publisher({ logger: this.logger });
+    return this;
 }
+module.exports = AmqplibSimple;

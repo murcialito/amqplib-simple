@@ -1,15 +1,16 @@
 'use strict';
 
-const amqplibSimple = require('../index');
+const AmqplibSimple = require('../index');
 
+const amqplibSimple = AmqplibSimple({ 
+    log: true,
+    service: 'aservicename',
+    version: 'aserviceversion',
+    exchange: 'aexchangename',
+    routingKey: 'aroutingkey',
+  });
 describe('Amqplib Simple', () => {
-    it('Module returns an object', () => {
-        amqplibSimple.should.be.an('object');
-      });
         describe('connection object', () => {
-            it('is available', () => {
-                amqplibSimple.connection.should.be.an('object');
-            });
             describe('connect method', () => {
                 it('is available', () => {
                     amqplibSimple.connection.connect.should.be.a('function');
@@ -28,9 +29,6 @@ describe('Amqplib Simple', () => {
             });
         });
         describe('consumer object', () => {
-            it('is available', () => {
-                amqplibSimple.consumer.should.be.an('object');
-            });
             describe('consume method', () => {
                 it('is available', () => {
                     amqplibSimple.consumer.consume.should.be.a('function');
@@ -41,9 +39,6 @@ describe('Amqplib Simple', () => {
             });
         }); 
         describe('publisher method', () => {
-            it('is available', () => {
-                amqplibSimple.publisher.should.be.an('object');
-            });
             describe('publishOne method', () => {
                 it('is available', () => {
                     amqplibSimple.publisher.publishOne.should.be.a('function');

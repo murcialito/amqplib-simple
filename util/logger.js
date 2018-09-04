@@ -7,7 +7,7 @@ const docDefaults = {
   }
 
 function sendLog (conn, document) {
-    debug('Sending log for doc %s', document)
+    debug('Sending log for doc %j', document)
     conn.channel.publish(
         'production', 'monitoring',
         Buffer.from(JSON.stringify(document)), { persistent: true },
@@ -16,7 +16,7 @@ function sendLog (conn, document) {
 }
 
 function customLog (conn, type, obj) {
-    const doc = obj;
+    const doc = JSON.parse(JSON.stringify(obj));
     doc.service = docDefaults.service;
     doc.timeLog = Date.now();
     doc.type = type;
