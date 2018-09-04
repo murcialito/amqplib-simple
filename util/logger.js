@@ -2,14 +2,18 @@ const debug = require('debug')('amqplib-simple:util:logger');
 const os = require('os');
 
 const docDefaults = {
-    service: null,
     hostname: os.hostname(),
   }
+
+const publishTo = {
+    exchange: null,
+    routingKey: null,
+}
 
 function sendLog (conn, document) {
     debug('Sending log for doc %j', document)
     conn.channel.publish(
-        'production', 'monitoring',
+        publishTo.exchange, publishTo.routingKey,
         Buffer.from(JSON.stringify(document)), { persistent: true },
       );
     return true;
@@ -24,8 +28,12 @@ function customLog (conn, type, obj) {
 }
 
 function Logger(options) {
+    const { service, version, exchange, routingKey } = options;
     debug('%s enabled', options.service);
-    docDefaults.service = options.service;
+    docDefaults.service = service;
+    docDefaults.version = version;
+    publishTo.exchange = exchange;
+    publishTo.routingKey = routingKey;
     this.customLog = customLog;
 
     return this;
